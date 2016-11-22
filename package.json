@@ -1,0 +1,21 @@
+{
+  "name": "etobi/domiqMqtt",
+  "version": "0.0.1",
+  "dependencies": {
+    "ip": "*",
+    "net-socket-reconnect": "*",
+    "simple-node-logger": "*",
+    "mqtt": "*",
+    "inherits": "*"
+  },
+  "scripts": {
+    "start": "node start.js"
+  },
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Tobias Liebig",
+      "email": "work@etobi.de"
+    }
+  ]
+}

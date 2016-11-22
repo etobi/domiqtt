@@ -1,0 +1,10 @@
+{
+	"domiq": {
+		"host": "192.168.50.50",
+		"port": 4224
+	},
+	"mqtt": {
+		"url": "mqtt://127.0.0.1",
+		"prefix": "james/lcn/"
+	}
+}
