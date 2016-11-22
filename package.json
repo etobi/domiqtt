@@ -5,6 +5,7 @@
     "ip": "*",
     "net-socket-reconnect": "*",
     "simple-node-logger": "*",
+    "nconf": "*",
     "mqtt": "*",
     "inherits": "*"
   },

@@ -1,6 +1,7 @@
-process.title = 'james-httpentrance';
+process.title = 'domiqMqtt';
 
-var config = require('./config.json'),
+var nconf = require('nconf'),
+		defaultConfig = require('./defaultConfig.json'),
 		DomiqClient = require('./lib/domiqClient.js'),
 
 		SimpleLogger = require('simple-node-logger'),
@@ -10,27 +11,32 @@ var config = require('./config.json'),
 		logManager = new SimpleLogger(),
 		logger = logManager.createLogger();
 
-
 main = function () {
+	nconf.env('__').argv();
+	nconf.file('custom', './config.json');
+	nconf.file('etc', '/etc/domiqMqtt/config.json');
+	nconf.defaults(defaultConfig);
+
 	logManager.createConsoleAppender();
 
-	var domiqClient = new DomiqClient(config.domiq);
+	var domiqClient = new DomiqClient(nconf.get('domiq'));
 	domiqClient.connect();
 	domiqClient.on('connect', function() {
 		logger.info('domiq connected');
 	});
 
-	var mqttClient = mqtt.connect(config.mqtt.url, config.mqtt.options);
+	console.log(nconf.get('mqtt'));
+	var mqttClient = mqtt.connect(nconf.get('mqtt:url'), nconf.get('mqtt:options'));
 	mqttClient.on('connect', function () {
 		logger.info('mqtt connected');
-		mqttClient.subscribe('+/' + config.mqtt.prefix + '#');
+		mqttClient.subscribe('+/' + nconf.get('mqtt:prefix') + '#');
 	});
 
 	domiqClient.on('event', function(address, value) {
 		logger.info('domiq', ' ', address, ' = ', value);
 		var topic = mqttClient.options.clientId +
 				'/' +
-				config.mqtt.prefix +
+				nconf.get('mqtt:prefix') +
 				address.replace(/\./g, '/');
 		mqttClient.publish(topic, value);
 	});
@@ -40,7 +46,7 @@ main = function () {
 		var senderId = topic.substring(0, firstSlashIndex);
 		if (senderId != mqttClient.options.clientId) {
 			logger.info('mqtt', ' ', topic, ' ', message.toString());
-			var regex = new RegExp('^/' + config.mqtt.prefix);
+			var regex = new RegExp('^/' + nconf.get('mqtt:prefix'));
 			var address = topic
 					.substring(firstSlashIndex)
 					.replace(regex, '')
