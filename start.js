@@ -20,7 +20,7 @@ main = function () {
 		logger.info('domiq connected');
 	});
 
-	var mqttClient = mqtt.connect(config.mqtt.url);
+	var mqttClient = mqtt.connect(config.mqtt.url, config.mqtt.options);
 	mqttClient.on('connect', function () {
 		logger.info('mqtt connected');
 		mqttClient.subscribe('+/' + config.mqtt.prefix + '#');

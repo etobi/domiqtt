@@ -5,6 +5,9 @@
 	},
 	"mqtt": {
 		"url": "mqtt://127.0.0.1",
+		"options": {
+			"username": ""
+		},
 		"prefix": "james/lcn/"
 	}
 }
