@@ -1,5 +1,5 @@
 {
-  "name": "etobi/domiqMqtt",
+  "name": "domiqMqtt",
   "version": "0.0.1",
   "dependencies": {
     "ip": "*",
