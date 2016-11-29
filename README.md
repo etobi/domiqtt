@@ -25,8 +25,8 @@ Thus it's acting a a bridge and enables software like OpenHAB or Home-Assistant 
 
 ## Installation
 
-    git clone https://github.com/etobi/node-domiqMqtt.git 
-    cd node-domiqMqtt
+    git clone https://github.com/etobi/domiqtt.git 
+    cd domiqtt
     npm install
     cp defaultConfig.js config.js
     # edit config.js and adjust the IP of the domiq and MQTT
