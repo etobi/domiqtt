@@ -1,4 +1,4 @@
-process.title = 'domiqMqtt';
+process.title = 'domiqtt';
 
 var nconf = require('nconf'),
 		defaultConfig = require('./defaultConfig.json'),
@@ -14,7 +14,7 @@ var nconf = require('nconf'),
 main = function () {
 	nconf.env('__').argv();
 	nconf.file('custom', './config.json');
-	nconf.file('etc', '/etc/domiqMqtt/config.json');
+	nconf.file('etc', '/etc/domiqtt/config.json');
 	nconf.defaults(defaultConfig);
 
 	logManager.createConsoleAppender();
