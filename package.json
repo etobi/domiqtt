@@ -1,5 +1,5 @@
 {
-  "name": "domiqMqtt",
+  "name": "domiqtt",
   "version": "0.0.1",
   "dependencies": {
     "ip": "*",
@@ -16,7 +16,7 @@
   "maintainers": [
     {
       "name": "Tobias Liebig",
-      "email": "work@etobi.de"
+      "email": "mail_domiqtt@etobi.de"
     }
   ]
 }
