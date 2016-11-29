@@ -1,5 +1,5 @@
 
-# DoMiQTT / node-domiqMqtt
+# DoMiQTT - node.js based LCN/Domiq Base-MQTT-bridge
 
 ## TL;DR
 
