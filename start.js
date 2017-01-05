@@ -59,7 +59,6 @@ main = function () {
 		var regex = new RegExp('^' + nconf.get('mqtt:prefix'));
 		var lastSlashIndex = topic.lastIndexOf("/");
 		var specialCommand = topic.substring(lastSlashIndex + 1);
-		console.log(specialCommand);
 		if (specialCommand.substr(0, 1) == '_') {
 			switch (specialCommand) {
 				case '_set':
