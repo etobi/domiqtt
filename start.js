@@ -37,9 +37,13 @@ main = function () {
 		mqttClient.subscribe(
 				nconf.get('mqtt:prefix') + '#'
 		);
+		mqttClient.publish(nconf.get('mqtt:options:will:topic'), 'online');
 	});
 
 	domiqClient.on('event', function (address, value) {
+
+		// TODO ignore events by list
+
 		logger.info('< domiq', ' ', address, ' = ', value);
 		var topic = nconf.get('mqtt:prefix') +
 				address.replace(/\./g, '/');

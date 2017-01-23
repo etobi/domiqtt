@@ -6,7 +6,12 @@
 	"mqtt": {
 		"url": "mqtt://127.0.0.1",
 		"options": {
-			"username": ""
+			"username": "",
+			"will": {
+				"topic": "domiqtt/status",
+				"payload": "offline",
+				"retain": true
+			}
 		},
 		"prefix": "james/lcn/"
 	}
