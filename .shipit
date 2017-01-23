@@ -1,0 +1,14 @@
+host='igor-pi'
+path='/usr/local/domiqtt/'
+
+[deploy:local]
+git push origin master
+
+[deploy]
+git checkout master
+git pull
+npm install
+/usr/local/bin/domiqttStart.sh
+
+[status]
+ps -ef | grep domiqtt
