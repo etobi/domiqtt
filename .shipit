@@ -8,7 +8,7 @@ git push origin master
 git checkout master
 git pull
 npm install
-/usr/local/bin/domiqttStart.sh
+sudo bash -c "npm start > /var/log/domiqtt.log 2&>1 &"
 
 [status]
 ps -ef | grep domiqtt
