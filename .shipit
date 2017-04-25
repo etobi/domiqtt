@@ -8,6 +8,7 @@ git push origin master
 git checkout master
 git pull
 npm install
+sudo bash -c "pgrep domiqtt && killall domiqtt || echo "
 sudo bash -c "npm start > /var/log/domiqtt.log 2&>1 &"
 
 [status]
