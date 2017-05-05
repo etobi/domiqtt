@@ -26,6 +26,26 @@ main = function () {
 	domiqClient.on('connect', function () {
 		logger.info('domiq connected');
 	});
+	
+	domiqClient.on('close', function () {
+		console.log('Connection closed');
+		
+	});
+
+	var errorCounter = 0
+	domiqClient.on('error', function(e) {
+		console.log('error:', e);
+		console.log(getDateTime());
+		errorCounter++;
+		if (errorCounter > 3) {
+			console.log('giving up. exiting.');
+			console.log(getDateTime());
+			process.exit(1);
+		}
+		domiqClient.setTimeout(4000 * errorCounter, function () {
+			domiqClient.connect();
+		});
+	});
 
 	console.log(nconf.get('mqtt'));
 	var mqttClient = mqtt.connect(
