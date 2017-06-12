@@ -35,7 +35,6 @@ main = function () {
 	var errorCounter = 0
 	domiqClient.on('error', function(e) {
 		console.log('error:', e);
-		console.log(getDateTime());
 		errorCounter++;
 		if (errorCounter > 3) {
 			console.log('giving up. exiting.');
