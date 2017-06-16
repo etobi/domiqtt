@@ -92,12 +92,16 @@ main = function () {
 							.replace(regex, '')
 							.replace(/\//g, '.');
 
+					if (specialCommand == '_brightness_set') {
+						domiqClient.ignoreNext(address.replace('_brightness_set', '_set'));
+					}
+
 					var value = message.toString();
 					if (message.toString() == 'ON') {
-						value = '100';
+						value = 'on';
 					}
 					if (message.toString() == 'OFF') {
-						value = '0';
+						value = 'off';
 					}
 					logger.info('> domiq', ' ', address, ' = ', value);
 					domiqClient.write(address, value);
