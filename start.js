@@ -77,24 +77,30 @@ main = function () {
 		}
 	});
 
+	var ignoreNextMessage = {};
 	mqttClient.on('message', function (topic, message) {
 		logger.info('< mqtt', ' ', topic, ' : ', message.toString());
 		var regex = new RegExp('^' + nconf.get('mqtt:prefix'));
 		var lastSlashIndex = topic.lastIndexOf("/");
 		var specialCommand = topic.substring(lastSlashIndex + 1);
+
+		if (ignoreNextMessage[specialCommand]) {
+			ignoreNextMessage[specialCommand] = false;
+			return;
+		}
+
 		if (specialCommand.substr(0, 1) == '_') {
 			switch (specialCommand) {
 				case '_set':
 				case '_brightness_set':
+					if (specialCommand == '_brightness_set') {
+						ignoreNextMessage[specialCommand.replace('_brightness_set', '_set')] = true;
+					}
 					topic = topic.substring(0, lastSlashIndex);
 
 					var address = topic
 							.replace(regex, '')
 							.replace(/\//g, '.');
-
-					if (specialCommand == '_brightness_set') {
-						domiqClient.ignoreNext(address.replace('_brightness_set', '_set'));
-					}
 
 					var value = message.toString();
 					if (message.toString() == 'ON') {
