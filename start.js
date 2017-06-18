@@ -109,6 +109,7 @@ main = function () {
 					if (message.toString() == 'OFF') {
 						value = 'off';
 					}
+					value = value + ';ramp:1';
 					logger.info('> domiq', ' ', address, ' = ', value);
 					domiqClient.write(address, value);
 
