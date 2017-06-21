@@ -1,6 +1,6 @@
 {
   "name": "domiqtt",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {
     "ip": "*",
     "net-socket-reconnect": "*",
@@ -11,6 +11,10 @@
   },
   "scripts": {
     "start": "node start.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/etobi/domiqtt.git"
   },
   "license": "MIT",
   "maintainers": [
