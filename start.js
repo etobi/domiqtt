@@ -1,5 +1,11 @@
 process.title = 'domiqtt';
 
+process.on('uncaughtException', function(e) {
+	console.log('Uncaught Exception...');
+	console.log(e.stack);
+	process.exit(99);
+});
+
 var nconf = require('nconf'),
 		defaultConfig = require('./defaultConfig.json'),
 		DomiqClient = require('./lib/domiqClient.js'),
