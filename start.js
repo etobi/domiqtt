@@ -96,19 +96,33 @@ main = function () {
 		}
 
 		if (specialCommand.substr(0, 1) == '_') {
+			topic = topic.substring(0, lastSlashIndex);
+			var address = topic
+					.replace(regex, '')
+					.replace(/\//g, '.');
+			var value = message.toString();
+
 			switch (specialCommand) {
+				case '_get':
+					domiqClient.get(address);
+					domiqClient.getAge(address, function(age) {
+						mqttClient.publish(topic + '/_age', age + "");
+					});
+					break;
+
+				case '_getAge':
+					domiqClient.getAge(address, function(age) {
+						mqttClient.publish(topic + '/_age', age + "");
+					});
+
+					break;
+
 				case '_set':
 				case '_brightness_set':
 					if (specialCommand == '_brightness_set') {
 						ignoreNextMessage[specialCommand.replace('_brightness_set', '_set')] = true;
 					}
-					topic = topic.substring(0, lastSlashIndex);
 
-					var address = topic
-							.replace(regex, '')
-							.replace(/\//g, '.');
-
-					var value = message.toString();
 					if (message.toString() == 'ON') {
 						value = 'on';
 					}
