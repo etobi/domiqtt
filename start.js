@@ -104,6 +104,7 @@ main = function () {
 					.replace(regex, '')
 					.replace(/\//g, '.');
 			var value = message.toString();
+			var addressParts = address.split('.');
 
 			switch (specialCommand) {
 				case '_get':
