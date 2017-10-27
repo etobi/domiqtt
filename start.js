@@ -129,7 +129,7 @@ main = function () {
 					if (message.toString() == 'OFF') {
 						value = 'off';
 					}
-					value = value + ';ramp:1';
+					value = value + ';ramp:4';
 					logger.info('> domiq', ' ', address, ' = ', value);
 					domiqClient.write(address, value);
 
