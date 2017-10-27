@@ -81,6 +81,9 @@ main = function () {
 			mqttClient.publish(topic + '/_brightness_state', value);
 			mqttClient.publish(topic + '/_state', value == 0 ? 'OFF' : 'ON');
 		}
+		if (addressParts[1] == 'relay') {
+			mqttClient.publish(topic + '/_state', value == 0 ? 'OFF' : 'ON');
+		}
 	});
 
 	var ignoreNextMessage = {};
@@ -129,7 +132,9 @@ main = function () {
 					if (message.toString() == 'OFF') {
 						value = 'off';
 					}
-					value = value + ';ramp:4';
+					if (addressParts[1] == 'output') {
+						value = value + ';ramp:4';
+					}
 					logger.info('> domiq', ' ', address, ' = ', value);
 					domiqClient.write(address, value);
 
