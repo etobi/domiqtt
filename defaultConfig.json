@@ -1,6 +1,6 @@
 {
 	"domiq": {
-		"host": "192.168.50.50",
+		"host": "domiq.localdomain",
 		"port": 4224
 	},
 	"mqtt": {
