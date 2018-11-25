@@ -1,6 +1,6 @@
 process.title = 'domiqtt';
 
-process.on('uncaughtException', function(e) {
+process.on('uncaughtException', function (e) {
 	console.log('Uncaught Exception...');
 	console.log(e.stack);
 	process.exit(99);
@@ -32,22 +32,22 @@ main = function () {
 	domiqClient.on('connect', function () {
 		logger.info('domiq connected');
 	});
-	
+
 	domiqClient.on('close', function () {
 		console.log('Connection closed');
-		
+
 	});
 
 	var errorCounter = 0
-	domiqClient.on('error', function(e) {
+	domiqClient.on('error', function (e) {
 		console.log('error:', e);
 		errorCounter++;
-		if (errorCounter > 3) {
+		if (errorCounter > 5) {
 			console.log('giving up. exiting.');
 			console.log(getDateTime());
 			process.exit(1);
 		}
-		domiqClient.setTimeout(4000 * errorCounter, function () {
+		setTimeout(4000 * errorCounter, function () {
 			domiqClient.connect();
 		});
 	});
@@ -71,17 +71,17 @@ main = function () {
 
 		logger.info('< domiq', ' ', address, ' = ', value);
 		var topic = nconf.get('mqtt:prefix') +
-				address.replace(/\./g, '/');
+					address.replace(/\./g, '/');
 
 		logger.info('> mqtt', ' ', topic, ' : ', value);
 		mqttClient.publish(topic, value);
 
 		var addressParts = address.split('.');
-		if (addressParts[1] == 'output') {
+		if (addressParts[1] === 'output') {
 			mqttClient.publish(topic + '/_brightness_state', value);
 			mqttClient.publish(topic + '/_state', value == 0 ? 'OFF' : 'ON');
 		}
-		if (addressParts[1] == 'relay') {
+		if (addressParts[1] === 'relay') {
 			mqttClient.publish(topic + '/_state', value == 0 ? 'OFF' : 'ON');
 		}
 	});
@@ -98,7 +98,7 @@ main = function () {
 			return;
 		}
 
-		if (specialCommand.substr(0, 1) == '_') {
+		if (specialCommand.substr(0, 1) === '_') {
 			topic = topic.substring(0, lastSlashIndex);
 			var address = topic
 					.replace(regex, '')
@@ -109,13 +109,13 @@ main = function () {
 			switch (specialCommand) {
 				case '_get':
 					domiqClient.get(address);
-					domiqClient.getAge(address, function(age) {
+					domiqClient.getAge(address, function (age) {
 						mqttClient.publish(topic + '/_age', age + "");
 					});
 					break;
 
 				case '_getAge':
-					domiqClient.getAge(address, function(age) {
+					domiqClient.getAge(address, function (age) {
 						mqttClient.publish(topic + '/_age', age + "");
 					});
 
@@ -123,17 +123,17 @@ main = function () {
 
 				case '_set':
 				case '_brightness_set':
-					if (specialCommand == '_brightness_set') {
-						ignoreNextMessage[specialCommand.replace('_brightness_set', '_set')] = true;
-					}
+//					if (specialCommand === '_brightness_set') {
+// 						ignoreNextMessage[specialCommand.replace('_brightness_set', '_set')] = true;
+// 					}
 
-					if (message.toString() == 'ON') {
+					if (message.toString() === 'ON') {
 						value = 'on';
 					}
-					if (message.toString() == 'OFF') {
+					if (message.toString() === 'OFF') {
 						value = 'off';
 					}
-					if (addressParts[1] == 'output') {
+					if (addressParts[1] === 'output') {
 						value = value + ';ramp:4';
 					}
 					logger.info('> domiq', ' ', address, ' = ', value);
