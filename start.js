@@ -47,9 +47,9 @@ main = function () {
 			console.log(getDateTime());
 			process.exit(1);
 		}
-		setTimeout(4000 * errorCounter, function () {
+		setTimeout(function () {
 			domiqClient.connect();
-		});
+		}, 4000 * errorCounter);
 	});
 
 	console.log(nconf.get('mqtt'));
