@@ -123,10 +123,6 @@ main = function () {
 
 				case '_set':
 				case '_brightness_set':
-//					if (specialCommand === '_brightness_set') {
-// 						ignoreNextMessage[specialCommand.replace('_brightness_set', '_set')] = true;
-// 					}
-
 					if (message.toString() === 'ON') {
 						value = 'on';
 					}
@@ -139,6 +135,29 @@ main = function () {
 					logger.info('> domiq', ' ', address, ' = ', value);
 					domiqClient.write(address, value);
 
+					break;
+
+				case '_gate_set':
+					if (message.toString() === 'OPEN') {
+						logger.info('> domiq', ' ', address, ' = ', '1');
+						domiqClient.write(address, 1);
+						setTimeout(function () {
+							logger.info('> domiq', ' ', address, ' = ', '0');
+							domiqClient.write(address, '0');
+						}, 200);
+					}
+
+					if (message.toString() === 'CLOSE') {
+						var newAddressParts = addressParts;
+						newAddressParts[4]++;
+						var newAddress = newAddressParts.join('.');
+						logger.info('> domiq', ' ', newAddress, ' = ', '1');
+						domiqClient.write(newAddress, '1');
+						setTimeout(function () {
+							logger.info('> domiq', ' ', newAddress, ' = ', '0');
+							domiqClient.write(newAddress, '0');
+						}, 200);
+					}
 					break;
 			}
 		}
