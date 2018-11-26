@@ -25,20 +25,22 @@ main = function () {
 
 	logManager.createConsoleAppender();
 
+	var initialState = false;
 	var domiqClient = new DomiqClient(
 			nconf.get('domiq')
 	);
 	domiqClient.connect();
 	domiqClient.on('connect', function () {
+		initialState = false;
 		logger.info('domiq connected');
 	});
 
 	domiqClient.on('close', function () {
 		console.log('Connection closed');
-
 	});
 
-	var errorCounter = 0
+	var errorCounter = 0;
+
 	domiqClient.on('error', function (e) {
 		console.log('error:', e);
 		errorCounter++;
@@ -66,8 +68,12 @@ main = function () {
 	});
 
 	domiqClient.on('event', function (address, value) {
-
 		// TODO ignore events by list
+
+		if (!initialState) {
+			initialState = true;
+			domiqClient.writeRaw("?");
+		}
 
 		logger.info('< domiq', ' ', address, ' = ', value);
 		var topic = nconf.get('mqtt:prefix') +
