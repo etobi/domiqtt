@@ -80,15 +80,15 @@ main = function () {
 					address.replace(/\./g, '/');
 
 		logger.info('> mqtt', ' ', topic, ' : ', value);
-		mqttClient.publish(topic, value);
+		mqttClient.publish(topic, value, {retain: true});
 
 		var addressParts = address.split('.');
 		if (addressParts[1] === 'output') {
-			mqttClient.publish(topic + '/_brightness_state', value);
-			mqttClient.publish(topic + '/_state', value == 0 ? 'OFF' : 'ON');
+			mqttClient.publish(topic + '/_brightness_state', value, {retain: true});
+			mqttClient.publish(topic + '/_state', value == 0 ? 'OFF' : 'ON', {retain: true});
 		}
 		if (addressParts[1] === 'relay') {
-			mqttClient.publish(topic + '/_state', value == 0 ? 'OFF' : 'ON');
+			mqttClient.publish(topic + '/_state', value == 0 ? 'OFF' : 'ON', {retain: true});
 		}
 	});
 
