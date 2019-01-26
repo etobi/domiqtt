@@ -85,10 +85,15 @@ main = function () {
 		var addressParts = address.split('.');
 		if (addressParts[1] === 'output') {
 			mqttClient.publish(topic + '/_brightness_state', value, {retain: true});
-			mqttClient.publish(topic + '/_state', value == 0 ? 'OFF' : 'ON', {retain: true});
+			mqttClient.publish(topic + '/_state', value === '0' ? 'OFF' : 'ON', {retain: true});
 		}
 		if (addressParts[1] === 'relay') {
-			mqttClient.publish(topic + '/_state', value == 0 ? 'OFF' : 'ON', {retain: true});
+			mqttClient.publish(topic + '/_state', value === '0' ? 'OFF' : 'ON', {retain: true});
+		}
+		if (addressParts[1] === 'key' && value === 'hit') {
+			setTimeout(function () {
+				mqttClient.publish(topic, 'break', {retain: true});
+			}, 150);
 		}
 	});
 
