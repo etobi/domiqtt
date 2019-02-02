@@ -163,7 +163,7 @@ main = function () {
 
 				case '_mode_set':
 					if (message.toString() === 'on') {
-						value = '1300';
+						value = '30';
 					}
 					if (message.toString() === 'off') {
 						value = '5';
