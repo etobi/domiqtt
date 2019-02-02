@@ -154,6 +154,20 @@ main = function () {
 
 					break;
 
+				case '_mode_set':
+					if (message.toString() === 'on') {
+						value = '25';
+					}
+					if (message.toString() === 'off') {
+						value = '16';
+					}
+					if (message.toString() === 'auto') {
+						value = '21';
+					}
+					value = (Number(value) * 10 + 1000).toString();
+					domiqClient.write(address, value);
+					break;
+
 				case '_temp_set':
 					value = (Number(value) * 10 + 1000).toString();
 					domiqClient.write(address, value);
