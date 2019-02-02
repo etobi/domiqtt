@@ -95,6 +95,9 @@ main = function () {
 				mqttClient.publish(topic, 'break', {retain: true});
 			}, 150);
 		}
+		if (addressParts[1] === 'regulator' || (addressParts[1] === 'variable' && addressParts[4] === '2')) {
+			mqttClient.publish(topic + '/_c', ((Number(value) - 1000) / 100), {retain: true});
+		}
 	});
 
 	var ignoreNextMessage = {};
