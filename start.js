@@ -151,6 +151,11 @@ main = function () {
 
 					break;
 
+				case '_temp_set':
+					value = (Number(value) * 10 + 1000).toString();
+					domiqClient.write(address, value);
+					break;
+
 				case '_gate_set':
 					if (message.toString() === 'OPEN') {
 						logger.info('> domiq', ' ', address, ' = ', '1');
