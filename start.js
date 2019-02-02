@@ -96,7 +96,14 @@ main = function () {
 			}, 150);
 		}
 		if (addressParts[1] === 'regulator') {
-			mqttClient.publish(topic + '/_mode', "auto", {retain: true});
+			var mode = 'auto';
+			if (value === '5') {
+				mode = 'off';
+			}
+			if (value === '30') {
+				mode = 'on';
+			}
+			mqttClient.publish(topic + '/_mode', mode, {retain: true});
 		}
 		if (addressParts[1] === 'regulator' || (addressParts[1] === 'variable' && addressParts[4] === '2')) {
 			mqttClient.publish(topic + '/_c', ((Number(value) - 1000) / 10).toString(), {retain: true});
@@ -156,10 +163,10 @@ main = function () {
 
 				case '_mode_set':
 					if (message.toString() === 'on') {
-						value = '25';
+						value = '30';
 					}
 					if (message.toString() === 'off') {
-						value = '16';
+						value = '5';
 					}
 					if (message.toString() === 'auto') {
 						value = '21';
