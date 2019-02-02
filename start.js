@@ -97,10 +97,10 @@ main = function () {
 		}
 		if (addressParts[1] === 'regulator') {
 			var mode = 'auto';
-			if (value === '5') {
+			if (value === '1050') {
 				mode = 'off';
 			}
-			if (value === '30') {
+			if (value === '1300') {
 				mode = 'on';
 			}
 			mqttClient.publish(topic + '/_mode', mode, {retain: true});
@@ -163,7 +163,7 @@ main = function () {
 
 				case '_mode_set':
 					if (message.toString() === 'on') {
-						value = '30';
+						value = '1300';
 					}
 					if (message.toString() === 'off') {
 						value = '5';
