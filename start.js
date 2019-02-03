@@ -105,7 +105,8 @@ main = function () {
 			}
 			mqttClient.publish(topic + '/_mode', mode, {retain: true});
 		}
-		if (addressParts[1] === 'regulator' || (addressParts[1] === 'variable' && addressParts[4] === '2')) {
+		var nValue = Number(value);
+		if (addressParts[1] === 'regulator' || (addressParts[1] === 'variable' && nValue > 800 && nValue < 6000)) {
 			mqttClient.publish(topic + '/_c', ((Number(value) - 1000) / 10).toString(), {retain: true});
 		}
 	});
