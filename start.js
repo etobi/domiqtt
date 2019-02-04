@@ -87,7 +87,7 @@ main = function () {
 			mqttClient.publish(topic + '/_brightness_state', value, {retain: true});
 			mqttClient.publish(topic + '/_state', value === '0' ? 'OFF' : 'ON', {retain: true});
 		}
-		if (addressParts[1] === 'relay' || addressParts[1] === 'variable' || addressParts[1] === 'sensor') {
+		if (addressParts[1] === 'relay' || addressParts[1] === 'variable') {
 			mqttClient.publish(topic + '/_state', value === '0' ? 'OFF' : 'ON', {retain: true});
 		}
 		if (addressParts[1] === 'key' && value === 'hit') {
