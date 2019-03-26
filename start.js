@@ -7,7 +7,6 @@ process.on('uncaughtException', function (e) {
 });
 
 var nconf = require('nconf'),
-		defaultConfig = require('./defaultConfig.json'),
 		DomiqClient = require('./lib/domiqClient.js'),
 
 		SimpleLogger = require('simple-node-logger'),
@@ -19,9 +18,7 @@ var nconf = require('nconf'),
 
 main = function () {
 	nconf.env('__').argv();
-	nconf.file('custom', './config.json');
-	nconf.file('etc', '/etc/domiqtt/config.json');
-	nconf.defaults(defaultConfig);
+	nconf.file('config', './config.json');
 
 	logManager.createConsoleAppender();
 

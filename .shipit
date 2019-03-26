@@ -1,5 +1,5 @@
-host='igor-pi'
-path='/usr/local/domiqtt/'
+host='nuc'
+path='cd /home/tobias/container/domiqtt/app'
 
 [deploy:local]
 git push origin master
@@ -7,9 +7,4 @@ git push origin master
 [deploy]
 git checkout master
 git pull
-npm install
-sudo bash -c "sudo pkill domiqtt || echo "
-sudo bash -c "cd /usr/local/domiqtt/; npm start > /var/log/domiqtt.log 2>&1 &"
 
-[status]
-ps -ef | grep domiqtt
