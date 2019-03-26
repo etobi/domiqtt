@@ -61,7 +61,7 @@ main = function () {
 		mqttClient.subscribe(
 				nconf.get('mqtt:prefix') + '#'
 		);
-		mqttClient.publish(nconf.get('mqtt:options:will:topic'), 'online');
+		mqttClient.publish(nconf.get('mqtt:options:will:topic'), 'online', {retain: true});
 	});
 
 	domiqClient.on('event', function (address, value) {
