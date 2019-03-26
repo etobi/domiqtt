@@ -1,5 +1,5 @@
 host='nuc'
-path='cd /home/tobias/container/domiqtt/app'
+path='/home/tobias/container/domiqtt/app'
 
 [deploy:local]
 git push origin master
