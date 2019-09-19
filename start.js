@@ -160,14 +160,15 @@ main = function () {
 					break;
 
 				case '_mode_set':
-					if (message.toString() === 'on' || message.toString() === 'heat' ) {
+					value = message.toString();
+					if (message.toString() === 'on' || message.toString() === 'heat') {
 						value = '30';
 					}
-					if (message.toString() === 'off') {
+					if (message.toString() === 'off' || message.toString() === 'cool') {
 						value = '5';
 					}
 					if (message.toString() === 'auto') {
-						value = '21';
+						value = '22';
 					}
 					value = (Number(value) * 10 + 1000).toString();
 					domiqClient.write(address, value);
