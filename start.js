@@ -98,7 +98,7 @@ main = function () {
 				mode = 'off';
 			}
 			if (value === '1300') {
-				mode = 'on';
+				mode = 'heat';
 			}
 			mqttClient.publish(topic + '/_mode', mode, {retain: true});
 		}
