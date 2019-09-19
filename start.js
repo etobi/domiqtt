@@ -160,7 +160,7 @@ main = function () {
 					break;
 
 				case '_mode_set':
-					if (message.toString() === 'on') {
+					if (message.toString() === 'on' || message.toString() === 'heat' ) {
 						value = '30';
 					}
 					if (message.toString() === 'off') {
