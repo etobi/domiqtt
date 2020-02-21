@@ -120,6 +120,11 @@ main = function () {
 			return;
 		}
 
+		if (specialCommand === '_refreshall') {
+			domiqClient.writeRaw("?");
+			return;
+		}
+
 		if (specialCommand.substr(0, 1) === '_') {
 			topic = topic.substring(0, lastSlashIndex);
 			var address = topic
@@ -152,7 +157,7 @@ main = function () {
 						value = 'off';
 					}
 					if (addressParts[1] === 'output') {
-						value = value + ';ramp:4';
+						value = value + ';ramp:2';
 					}
 					logger.info('> domiq', ' ', address, ' = ', value);
 					domiqClient.write(address, value);
