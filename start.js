@@ -172,11 +172,10 @@ main = function () {
 					if (message.toString() === 'off' || message.toString() === 'cool') {
 						value = '5';
 					}
-					if (message.toString() === 'auto') {
-						value = '22';
+					if (message.toString() !== 'auto') {
+						value = (Number(value) * 10 + 1000).toString();
+						domiqClient.write(address, value);
 					}
-					value = (Number(value) * 10 + 1000).toString();
-					domiqClient.write(address, value);
 					break;
 
 				case '_temp_set':

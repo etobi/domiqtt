@@ -3,11 +3,10 @@
   "version": "0.1.0",
   "dependencies": {
     "ip": "*",
-    "net-socket-reconnect": "*",
-    "simple-node-logger": "*",
-    "nconf": "*",
     "mqtt": "*",
-    "inherits": "*"
+    "nconf": "*",
+    "net-socket-reconnect": "*",
+    "simple-node-logger": "*"
   },
   "scripts": {
     "start": "node start.js"
