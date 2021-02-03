@@ -24,7 +24,7 @@ if [[ $? -gt 0 ]]; then
 	exit 1;
 fi
 
-scp ./config.yaml nuc:/mnt/ssd/container/domiqtt/config/
+scp ./config.json nuc:/mnt/ssd/container/domiqtt/config/
 if [[ $? -gt 0 ]]; then
 	exit 1;
 fi
