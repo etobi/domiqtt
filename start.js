@@ -190,7 +190,7 @@ main = function () {
 						setTimeout(function () {
 							logger.info('> domiq', ' ', address, ' = ', '0');
 							domiqClient.write(address, '0');
-						}, 200);
+						}, 1000);
 					}
 
 					if (message.toString() === 'CLOSE') {
@@ -202,7 +202,7 @@ main = function () {
 						setTimeout(function () {
 							logger.info('> domiq', ' ', newAddress, ' = ', '0');
 							domiqClient.write(newAddress, '0');
-						}, 200);
+						}, 1000);
 					}
 					break;
 			}
