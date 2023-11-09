@@ -150,11 +150,11 @@ main = function () {
 
 				case '_set':
 				case '_brightness_set':
-					if (message.toString() === 'ON') {
-						value = 'on';
+					if (message.toString() === 'ON' || message.toString() === 'on') {
+						value = '1';
 					}
-					if (message.toString() === 'OFF') {
-						value = 'off';
+					if (message.toString() === 'OFF' || message.toString() === 'off') {
+						value = '0';
 					}
 					if (addressParts[1] === 'output') {
 						value = value + ';ramp:2';
