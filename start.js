@@ -161,6 +161,7 @@ main = function () {
 					}
 					logger.info('> domiq', ' ', address, ' = ', value);
 					domiqClient.write(address, value);
+					domiqClient.get(address);
 
 					break;
 
