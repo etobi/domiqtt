@@ -161,6 +161,7 @@ main = function () {
 					}
 					logger.info('> domiq', ' ', address, ' = ', value);
 					domiqClient.write(address, value);
+					domiqClient.get(address);
 
 					break;
 
@@ -176,11 +177,13 @@ main = function () {
 						value = (Number(value) * 10 + 1000).toString();
 						domiqClient.write(address, value);
 					}
+					domiqClient.get(address);
 					break;
 
 				case '_temp_set':
 					value = (Number(value) * 10 + 1000).toString();
 					domiqClient.write(address, value);
+					domiqClient.get(address);
 					break;
 
 				case '_gate_set':
