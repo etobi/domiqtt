@@ -5,8 +5,7 @@
     "ip": "*",
     "mqtt": "*",
     "nconf": "*",
-    "net-socket-reconnect": "*",
-    "simple-node-logger": "*"
+    "net-socket-reconnect": "*"
   },
   "scripts": {
     "start": "node start.js"

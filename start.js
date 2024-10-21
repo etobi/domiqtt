@@ -9,18 +9,18 @@ process.on('uncaughtException', function (e) {
 var nconf = require('nconf'),
 		DomiqClient = require('./lib/domiqClient.js'),
 
-		SimpleLogger = require('simple-node-logger'),
+		// SimpleLogger = require('simple-node-logger'),
 
 		mqtt = require('mqtt'),
 
-		logManager = new SimpleLogger(),
-		logger = logManager.createLogger();
+		// logManager = new SimpleLogger(),
+		// logger = logManager.createLogger();
 
 main = function () {
 	nconf.env('__').argv();
 	nconf.file('config', './config.json');
 
-	logManager.createConsoleAppender();
+	// logManager.createConsoleAppender();
 
 	var initialState = false;
 	var domiqClient = new DomiqClient(
@@ -29,7 +29,7 @@ main = function () {
 	domiqClient.connect();
 	domiqClient.on('connect', function () {
 		initialState = false;
-		logger.info('domiq connected');
+		// logger.info('domiq connected');
 	});
 
 	domiqClient.on('close', function () {
@@ -57,7 +57,7 @@ main = function () {
 			nconf.get('mqtt:options')
 	);
 	mqttClient.on('connect', function () {
-		logger.info('mqtt connected');
+		// logger.info('mqtt connected');
 		mqttClient.subscribe(
 				nconf.get('mqtt:prefix') + '#'
 		);
@@ -72,11 +72,11 @@ main = function () {
 			domiqClient.writeRaw("?");
 		}
 
-		logger.info('< domiq', ' ', address, ' = ', value);
+		// logger.info('< domiq', ' ', address, ' = ', value);
 		var topic = nconf.get('mqtt:prefix') +
 					address.replace(/\./g, '/');
 
-		logger.info('> mqtt', ' ', topic, ' : ', value);
+		// logger.info('> mqtt', ' ', topic, ' : ', value);
 		mqttClient.publish(topic, value, {retain: true});
 
 		var addressParts = address.split('.');
@@ -110,7 +110,7 @@ main = function () {
 
 	var ignoreNextMessage = {};
 	mqttClient.on('message', function (topic, message) {
-		logger.info('< mqtt', ' ', topic, ' : ', message.toString());
+		// logger.info('< mqtt', ' ', topic, ' : ', message.toString());
 		var regex = new RegExp('^' + nconf.get('mqtt:prefix'));
 		var lastSlashIndex = topic.lastIndexOf("/");
 		var specialCommand = topic.substring(lastSlashIndex + 1);
@@ -159,7 +159,7 @@ main = function () {
 					if (addressParts[1] === 'output') {
 						value = value + ';ramp:2';
 					}
-					logger.info('> domiq', ' ', address, ' = ', value);
+					// logger.info('> domiq', ' ', address, ' = ', value);
 					domiqClient.write(address, value);
 					domiqClient.get(address);
 
@@ -188,10 +188,10 @@ main = function () {
 
 				case '_gate_set':
 					if (message.toString() === 'OPEN') {
-						logger.info('> domiq', ' ', address, ' = ', '1');
+						// logger.info('> domiq', ' ', address, ' = ', '1');
 						domiqClient.write(address, 1);
 						setTimeout(function () {
-							logger.info('> domiq', ' ', address, ' = ', '0');
+							// logger.info('> domiq', ' ', address, ' = ', '0');
 							domiqClient.write(address, '0');
 						}, 1000);
 					}
@@ -200,10 +200,10 @@ main = function () {
 						var newAddressParts = addressParts;
 						newAddressParts[4]++;
 						var newAddress = newAddressParts.join('.');
-						logger.info('> domiq', ' ', newAddress, ' = ', '1');
+						// logger.info('> domiq', ' ', newAddress, ' = ', '1');
 						domiqClient.write(newAddress, '1');
 						setTimeout(function () {
-							logger.info('> domiq', ' ', newAddress, ' = ', '0');
+							// logger.info('> domiq', ' ', newAddress, ' = ', '0');
 							domiqClient.write(newAddress, '0');
 						}, 1000);
 					}
